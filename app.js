@@ -4,6 +4,7 @@ const express = require('express');
 
 const { mongoConnect } = require('./util/database'); 
 const ConversationController = require('./controllers/conversation');
+const LetterController = require('./controllers/letter');
 
 const app = express();
 var server = http.createServer(app);
@@ -17,15 +18,8 @@ app.get('/', (req, res) => {
       .end();
   });
 
-app.get('/api/conversation', ConversationController.postCreateConversation
-// (req, res) => {
-//     console.log(req.query)
-//   res
-//     .status(200)
-//     .json({'Message' : req.query.id})
-//     .end();
-// }
-);
+app.post('/api/conversation', ConversationController.postCreateConversation);
+app.post('/api/letter', LetterController.postCreateLetter);
 
 app.get('/api/new', (req, res) => {
     res
