@@ -1,17 +1,16 @@
-// console.log ("Hello World")
-
 require('dotenv').config();
 var http = require('http');
-
 const express = require('express');
 const { customAlphabet } = require('nanoid');
 const alphabet = '0123456789abcdef';
 const nanoid = customAlphabet(alphabet, 24);
+
+const { mongoConnect } = require('./util/database'); 
+
 const app = express();
-app.use(express.json())
 var server = http.createServer(app);
 const port = process.env.PORT; 
-const { mongoConnect } = require('./util/database'); 
+app.use(express.json())
 
 app.get('/', (req, res) => {
     res
@@ -34,14 +33,7 @@ app.get('/api/new', (req, res) => {
       .json({'id' : nanoid()})
       .end();
   });
- 
-// Start the server
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`);
-  console.log('Press Ctrl+C to quit.');
-});
 
 mongoConnect(() => {
-  //server.listen(port, () => { console.log('We are live on ' + port); });
+  server.listen(port, () => { console.log('We are live on ' + port); });
 }) 
