@@ -20,6 +20,8 @@ app.get('/', (req, res) => {
 
 app.post('/api/conversation', ConversationController.postCreateConversation);
 app.post('/api/letter', LetterController.postCreateLetter);
+app.get('/api/letter/:id', LetterController.getLetter);
+
 
 app.get('/api/new', (req, res) => {
     res
@@ -27,6 +29,8 @@ app.get('/api/new', (req, res) => {
       .json({'id' : "thing"})
       .end();
   });
+
+
 
 mongoConnect(() => {
   server.listen(port, () => { console.log('We are live on ' + port); });
