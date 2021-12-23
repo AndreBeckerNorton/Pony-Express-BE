@@ -1,15 +1,27 @@
+const Conversation  = require('../models/conversation');
 const Letter = require('../models/letter');
 
 exports.postCreateLetter = (req, res) => {
     const content = req.body.content
     const convoId = req.body.convoId
-    Letter
-        .createLetter(content, convoId)
-        .then(result => {
-            if(result) {
-                return res.json({"content": result});
+    Conversation
+        .findById(convoId)
+        .then(conversation => {
+            if(!conversation) {
+                throw new Error()
             } else {
-                return res.status(400).json({message: "Content creation failed"});
+            Letter
+                .createLetter(content, convoId)
+                .then(result => {
+                    if(result) {
+                        return res.json({"content": result});
+                    } else {
+                        throw new Error()
+                    }
+                })
+                .catch(err => {
+                    return res.status(400).json({message: "Content creation failed"});
+                })
             }
         })
         .catch(err => {
@@ -34,4 +46,3 @@ exports.getLetter = (req, res) => {
         })
 }
 
-// get all letters sorted by creation

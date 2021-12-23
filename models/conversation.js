@@ -22,6 +22,19 @@ exports.createConversation = () => {
         })
 }
 
+exports.findById = (id) => {
+    let db = getDb();
+    var mongoId = new mongodb.ObjectId(id)
+    return db.collection('conversations')
+        .findOne({
+            _id: mongoId
+        })
+        .catch(err => {
+            console.log(err);
+            return err
+        })
+}
+
 
 
 // class Conversation {

@@ -17,8 +17,9 @@ app.get('/', (req, res) => {
       .send('Hello, World!')
       .end();
   });
-
+  
 app.post('/api/conversation', ConversationController.postCreateConversation);
+app.get('/api/conversation/:id', ConversationController.getConversation);
 app.post('/api/letter', LetterController.postCreateLetter);
 app.get('/api/letter/:id', LetterController.getLetter);
 

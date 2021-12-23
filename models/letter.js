@@ -36,3 +36,22 @@ exports.findById = (id) => {
         })
 }
 
+exports.findByConvoId = (id) => {
+    let db = getDb();
+    var mongoId = new mongodb.ObjectId(id)
+    return db.collection('letters')
+        .find({
+            convoId: mongoId
+        })
+        //.sort({
+        //    createdAt: -1
+        //})
+        .toArray()
+        .catch(err => {
+            console.log(err);
+            return err
+        })
+}
+
+
+
