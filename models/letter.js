@@ -43,9 +43,9 @@ exports.findByConvoId = (id) => {
         .find({
             convoId: mongoId
         })
-        //.sort({
-        //    createdAt: -1
-        //})
+        .sort({
+            createdAt: -1 // sort by descending order of creation time
+        })
         .toArray()
         .catch(err => {
             console.log(err);
